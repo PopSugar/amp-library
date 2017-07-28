@@ -91,7 +91,9 @@ class InstagramTransformPass extends BasePass
         $client = new Client();
         try {
             $res = $client->get('https://api.instagram.com/oembed/', [
-                'query' => ['url' => $url]
+                'query' => ['url' => $url],
+                'timeout' => 1,
+                'connect_timeout' => 1,
             ]);
         } catch (GuzzleException $e) {
             return $e->getMessage() . PHP_EOL . 'Could not make request to instagram oembed endpoint. Setting default height and width';
