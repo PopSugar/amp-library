@@ -4401,6 +4401,9 @@ class ValidationRulesFactory {
   $o_1027->deprecation_url = 'https://www.ampproject.org/docs/reference/extended/amp-youtube.html';
   $o_1027->mandatory_oneof = '[\'src\', \'data-videoid\']';
   $o_1023->attrs[] = $o_1027;
+  $o_1027_1 = new AttrSpec();
+  $o_1027_1->name = 'autoplay';
+  $o_1023->attrs[] = $o_1027_1;
   $o_1023->attr_lists = ['extended-amp-global'];
   $o_1023->spec_url = 'https://www.ampproject.org/docs/reference/extended/amp-youtube.html';
   $o_1028 = new AmpLayout();
