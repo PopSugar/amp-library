@@ -46,6 +46,8 @@ class IframeYouTubeTagTransformPass extends BasePass
     const DEFAULT_VIDEO_WIDTH = 560;
     const DEFAULT_VIDEO_HEIGHT = 315;
 
+    const AMP_ATTRIBUTES = ['autoplay'];
+
     function pass()
     {
         $all_iframes = $this->q->find('iframe:not(noscript iframe)');
@@ -199,7 +201,10 @@ class IframeYouTubeTagTransformPass extends BasePass
         //
         // We're doing this in reverse: we see the query parameters and we make them data-param-*
         foreach ($arr as $query_name => $query_value) {
-            $new_dom_el->attr("data-param-$query_name", $query_value);
+            if (!in_array($query_name,self::AMP_ATTRIBUTES)) {
+                $query_name = "data-param-{$query_name}";
+            }
+            $new_dom_el->attr($query_name, $query_value);
         }
     }
 }
