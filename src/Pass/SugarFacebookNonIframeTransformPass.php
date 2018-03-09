@@ -14,9 +14,4 @@ class SugarFacebookNonIframeTransformPass extends FacebookNonIframeTransformPass
     {
         return TRUE;
     }
-
-    protected function isValidVideoUrl($url)
-    {
-        return TRUE;
-    }
 }
