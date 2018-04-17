@@ -55,7 +55,9 @@ class InstagramTransformPass extends BasePass
             $new_el = $el->next();
 
             // Set shortcode and use oembed to get the image size parameters
-            $error_string = $this->setInstagramShortcodeAndDimensions($new_el, $shortcode, $url);
+            // Set captioned attributes when required
+            $captioned = $dom_el->hasAttribute('data-instgrm-captioned');
+            $error_string = $this->setInstagramShortcodeAndDimensions($new_el, $shortcode, $url, $captioned);
 
             $new_dom_el = $new_el->get(0);
 
@@ -76,17 +78,21 @@ class InstagramTransformPass extends BasePass
 
     /**
      * Set the shortcode. Using the oembed instagram endpoint, set the instagram height and width attributes
+     * Set data-captioned
      *
      * @param DOMQuery $el
      * @param string $shortcode
      * @param string $url
      * @return string|null
      */
-    protected function setInstagramShortcodeAndDimensions(DOMQuery $el, $shortcode, $url)
+    protected function setInstagramShortcodeAndDimensions(DOMQuery $el, $shortcode, $url, $captioned = TRUE)
     {
         $el->attr('data-shortcode', $shortcode);
         $el->attr('width', self::DEFAULT_INSTAGRAM_WIDTH);
         $el->attr('height', self::DEFAULT_INSTAGRAM_HEIGHT);
+        if ($captioned) {
+            $el->attr('data-captioned', '');
+        }
 
         $client = new Client();
         try {
